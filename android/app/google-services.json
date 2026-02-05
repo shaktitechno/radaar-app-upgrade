@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "959857594400",
+    "project_id": "hotspotmeet-47c49",
+    "storage_bucket": "hotspotmeet-47c49.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:959857594400:android:175f8964abc53c90df6c45",
+        "android_client_info": {
+          "package_name": "com.hotspotmeet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "959857594400-3q2h1so4gpg8pp0e9oaafu9dsj6mkigl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hotspotmeet",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "959857594400-4nj1c4j7lma3jl2ggij6thbhc9nis0nd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPy25GxvnkLYAZqnGJ3SiTzFnyPBw0tpw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "959857594400-4nj1c4j7lma3jl2ggij6thbhc9nis0nd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
