@@ -7,4 +7,5 @@ export const useChatState = create<{ chatState: chatData }>(() => ({
     loading: true,
     unreadMesage: false,
   },
+  
 }));

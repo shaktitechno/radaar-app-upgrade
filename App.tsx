@@ -82,16 +82,16 @@ console.log("solved:", solved);
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Provider store={store}>
-        <SafeAreaProvider>
           <NavigationContainer  ref={RootNavigation.NavigationRef}>
             <StatusBar
               translucent
               backgroundColor="#fff"
               barStyle="dark-content"
-            />
+              />
+              <SafeAreaProvider style={{marginTop:20}}>
            {solved && <StackNavigation token={token} intro={intro} />}
-          </NavigationContainer>
         </SafeAreaProvider>
+          </NavigationContainer>
       </Provider>
     </GestureHandlerRootView>
   );

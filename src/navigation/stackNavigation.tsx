@@ -21,6 +21,8 @@ import OccupHobbiesDescri from '../screens/signup/occupationHobbiesDescri';
 import Sports from '../screens/signup/sports';
 import Work from '../screens/work';
 import RecentPics from '../screens/signup/uploadImges';
+import CameraComponent from '../components/CameraComponent';
+import CallHistory from '../screens/call/callHistory';
 const StackNavigation = ({ token, intro }: any) => {
   const Stack = createNativeStackNavigator();
   const messages = useChatState(state => state.chatState);
@@ -269,6 +271,7 @@ const StackNavigation = ({ token, intro }: any) => {
   const getMessages = () => {
     // setLoading(true)
     getALLChatUsers().then(res => {
+      console.log("res::", res)
       // console.log('chat data is heeer2',res)
       // console.log('data==-=-=-=-chat',res.data?.chats)
       // setTimeout(() => {
@@ -284,7 +287,7 @@ const StackNavigation = ({ token, intro }: any) => {
       getMessages();
     }
   }, [token]);
-  console.log("token::", token)
+  console.log('token::', token);
   const screen = intro ? 'SocialLogin' : 'Screen1';
   return (
     <SigninUpDataProvider token={token}>
@@ -311,8 +314,11 @@ const StackNavigation = ({ token, intro }: any) => {
             component={OccupHobbiesDescri}
           />
           <Stack.Screen name="Sports" component={Sports} />
-          <Stack.Screen name='Work' component={Work}/>
-           <Stack.Screen name='UploadImages' component={RecentPics} />
+          <Stack.Screen name="Work" component={Work} />
+          <Stack.Screen name="UploadImages" component={RecentPics} />
+          <Stack.Screen name="CameraComponent" component={CameraComponent} />
+          <Stack.Screen name='CallHistory' component={CallHistory} />
+
         </Stack.Navigator>
       </UserProfileDataProvider>
     </SigninUpDataProvider>

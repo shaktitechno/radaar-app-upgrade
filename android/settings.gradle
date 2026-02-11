@@ -1,6 +1,25 @@
 pluginManagement { includeBuild("../node_modules/@react-native/gradle-plugin") }
 plugins { id("com.facebook.react.settings") }
 extensions.configure(com.facebook.react.ReactSettingsExtension){ ex -> ex.autolinkLibrariesFromCommand() }
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://storage.zego.im/maven' }
+        
+
+        // ✅ Mapbox Maven Repository (REQUIRED)
+        maven {
+            url 'https://api.mapbox.com/downloads/v2/releases/maven'
+            credentials {
+                username = 'mapbox'
+                password = providers.gradleProperty("MAPBOX_DOWNLOADS_TOKEN").orNull
+            }
+        }
+    }
+}
 rootProject.name = 'hotspotmeet'
 include ':react-native-splash-screen'   
 project(':react-native-splash-screen').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-splash-screen/android')
