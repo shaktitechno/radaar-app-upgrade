@@ -57,7 +57,7 @@ import { commonStyle } from '../../constant/commonStyle';
 import Colors from '../../constant/colors';
 import Feather from 'react-native-vector-icons/Feather';
 import CircleAnimation from '../../components/RotatingCircle';
-import { MultiStory } from 'react-native-story-view';
+// import { MultiStory } from 'react-native-story-view';
 import Header from '../../components/Header';
 import Footercomp from '../../components/Footer';
 import GradientBtn from '../../components/gradientBtn';
@@ -822,7 +822,7 @@ const MapScreen = (props: {
             {/* <Image className='w-[38] h-[38] rounded-full' source={{ uri: currentUserData?.profileImage?.mediaUrl}} /> */}
             <View className=" w-[38] h-[38]">
               <CircleAnimation ref={ref}>
-                <MultiStory
+                {/* <MultiStory
                   setIsStoryViewShow={setVisibleStory}
                   setComments={setComments}
                   isStoryViewVisible={visibleStory}
@@ -885,7 +885,7 @@ const MapScreen = (props: {
                       />
                     ),
                   }}
-                />
+                /> */}
               </CircleAnimation>
             </View>
             <TouchableOpacity

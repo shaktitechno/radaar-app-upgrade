@@ -20,7 +20,7 @@ import CustomText from './customText';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { commonStyle } from '../constant/commonStyle';
 import { calculateAge } from '../constant/veriables';
-import { MultiStory, MultiStoryContainer } from 'react-native-story-view';
+// import { MultiStory, MultiStoryContainer } from 'react-native-story-view';
 import { useFocusEffect } from '@react-navigation/native';
 // import Footercomp from './Footer';
 
@@ -90,7 +90,7 @@ const MapUser = (props: any) => {
                     className='w-[57] h-[57] rounded-full'
                 /> */}
         <View className="h-[57] w-[57] items-center justify-center ">
-          <MultiStory
+          {/* <MultiStory
             setIsStoryViewShow={setVisible}
             isStoryViewVisible={visible}
             scrollEnabled={false}
@@ -176,7 +176,7 @@ const MapUser = (props: any) => {
               },
               // visible:true
             }}
-          />
+          /> */}
         </View>
         <View className=" h-[57]  ml-[12] flex-1 ">
           <CustomText

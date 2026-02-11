@@ -21,7 +21,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { Footer as StoryFooter } from 'react-native-story-view';
+// import { Footer as StoryFooter } from 'react-native-story-view';
 import { addCommentToStory } from '../services/api';
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import Colors from '../constant/colors';
@@ -192,7 +192,7 @@ const Footercomp = ({
 
   return (
     <View>
-      <StoryFooter
+      {/* <StoryFooter
         {...{
           loading,
           setLoading,
@@ -219,7 +219,7 @@ const Footercomp = ({
           bottomSheetModalRefForView?.current?.present();
           setPause(true);
         }}
-      />
+      /> */}
       <BottomSheetModal
         ref={bottomSheetModalRef}
         index={0}

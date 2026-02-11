@@ -1,7 +1,7 @@
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 import { ScreenHeight } from '@rneui/base';
 import React, { useCallback, useMemo, useRef } from 'react';
-import { ProfileHeader } from 'react-native-story-view';
+// import { ProfileHeader } from 'react-native-story-view';
 import Colors from '../constant/colors';
 import CustomText from './customText';
 import { commonStyle } from '../constant/commonStyle';
@@ -43,7 +43,7 @@ const Header = ({ userStories,progressIndex,setVisible, multiStoryRef,setStories
 
   return(
   <>
-    <ProfileHeader
+    {/* <ProfileHeader
       userImage={{ uri: userStories?.profile ?? '' }}
       userName={userStories?.username}
       // userMessage={userStories?.title}
@@ -56,7 +56,7 @@ const Header = ({ userStories,progressIndex,setVisible, multiStoryRef,setStories
         progressIndex
       }}
       {...props}
-    />
+    /> */}
     <BottomSheetModal
       ref={bottomSheetModalRef}
       index={0}

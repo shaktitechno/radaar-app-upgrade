@@ -20,13 +20,6 @@ import {
   Dimensions,
   ActivityIndicator,
 } from 'react-native';
-import {
-  type MultiStoryRef,
-  Indicator,
-  MultiStory,
-  TransitionMode,
-} from 'react-native-story-view';
-// import { SvgXml } from 'react-native-svg';
 import { commonStyle } from '../../constant/commonStyle';
 import Colors from '../../constant/colors';
 import Header from '../../components/Header';
