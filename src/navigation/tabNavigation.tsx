@@ -94,9 +94,6 @@ const TabNavigation = () => {
         component={TabViewScreen}
         options={{
           tabBarIcon: ({ color }) => (
-            // <View className='' style={{ width: 20, height: 20,borderWidth:0 }}>
-            //     <Image tintColor={color} source={require('../assets/png/heart.png')} style={{ width: 20, height: 20 }} />
-            // </View>
             <AntDesign name="hearto" color={color} size={22} />
           ),
         }}

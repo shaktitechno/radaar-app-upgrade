@@ -23,6 +23,7 @@ import Work from '../screens/work';
 import RecentPics from '../screens/signup/uploadImges';
 import CameraComponent from '../components/CameraComponent';
 import CallHistory from '../screens/call/callHistory';
+import Settings from '../screens/setting/setting';
 const StackNavigation = ({ token, intro }: any) => {
   const Stack = createNativeStackNavigator();
   const messages = useChatState(state => state.chatState);
@@ -318,6 +319,8 @@ const StackNavigation = ({ token, intro }: any) => {
           <Stack.Screen name="UploadImages" component={RecentPics} />
           <Stack.Screen name="CameraComponent" component={CameraComponent} />
           <Stack.Screen name='CallHistory' component={CallHistory} />
+          <Stack.Screen name="Settings" component={Settings}  />
+
 
         </Stack.Navigator>
       </UserProfileDataProvider>
