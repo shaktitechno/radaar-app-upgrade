@@ -968,6 +968,7 @@ const ProfilePage = (props: {
             marginHorizontal: 10,
             overflow: 'hidden',
           }}
+          enableDynamicSizing={false}
         >
           <View className="flex-1 px-2  mx-[10]  rounded ">
             <View className="bg-white mb-2  rounded-[12px]">

@@ -24,6 +24,24 @@ import RecentPics from '../screens/signup/uploadImges';
 import CameraComponent from '../components/CameraComponent';
 import CallHistory from '../screens/call/callHistory';
 import Settings from '../screens/setting/setting';
+import PreferenceSettings from '../screens/setting/setting.preference';
+import BlockedUserList from '../screens/setting/blockList';
+import EditProfile from '../screens/profile/editProfile';
+import OtherUserProfile from '../screens/profile/otherUserProfile';
+import Relegion from '../screens/profile/Relegion';
+import StarSign from '../screens/profile/StarSign';
+
+import Drink from '../screens/profile/Drink';
+import PreferredPet from '../screens/profile/PreferredPet';
+import RelationshipType from '../screens/profile/RelationshipType';
+import DrinkOrSmoke from '../screens/profile/DrinkOrSmoke';
+import Traits from '../screens/profile/Traits';
+import EnjoyableActivity from '../screens/profile/EnjoyableActivity';
+import Qualities from '../screens/profile/Qualities';
+import EyeColor from '../screens/profile/EyeColor';
+import Height from '../screens/profile/Height';
+import Weight from '../screens/profile/Weight';
+
 const StackNavigation = ({ token, intro }: any) => {
   const Stack = createNativeStackNavigator();
   const messages = useChatState(state => state.chatState);
@@ -272,7 +290,7 @@ const StackNavigation = ({ token, intro }: any) => {
   const getMessages = () => {
     // setLoading(true)
     getALLChatUsers().then(res => {
-      console.log("res::", res)
+      console.log('res::', res);
       // console.log('chat data is heeer2',res)
       // console.log('data==-=-=-=-chat',res.data?.chats)
       // setTimeout(() => {
@@ -318,9 +336,30 @@ const StackNavigation = ({ token, intro }: any) => {
           <Stack.Screen name="Work" component={Work} />
           <Stack.Screen name="UploadImages" component={RecentPics} />
           <Stack.Screen name="CameraComponent" component={CameraComponent} />
-          <Stack.Screen name='CallHistory' component={CallHistory} />
-          <Stack.Screen name="Settings" component={Settings}  />
-
+          <Stack.Screen name="CallHistory" component={CallHistory} />
+          <Stack.Screen name="Settings" component={Settings} />
+          <Stack.Screen
+            name="PreferenceSettings"
+            component={PreferenceSettings}
+          />
+          <Stack.Screen name="BlockedUserList" component={BlockedUserList} />
+          <Stack.Screen name="EditProfile" component={EditProfile} />
+          <Stack.Screen name="OtherUserProfile" component={OtherUserProfile} />
+          <Stack.Screen name="CompleteProfile" component={Relegion} />
+          <Stack.Screen name="StarSign" component={StarSign} />
+          <Stack.Screen name="DrinkOrSmoke" component={DrinkOrSmoke} />
+          <Stack.Screen name="Drink" component={Drink} />
+          <Stack.Screen name="PreferredPet" component={PreferredPet} />
+          <Stack.Screen name="RelationshipType" component={RelationshipType} />
+          <Stack.Screen name="TraitsAttractedTo" component={Traits} />
+          <Stack.Screen
+            name="EnjoyableActivity"
+            component={EnjoyableActivity}
+          />
+          <Stack.Screen name="PartnerQualities" component={Qualities} />
+          <Stack.Screen name="EyeColor" component={EyeColor} />
+          <Stack.Screen name="Height" component={Height} />
+            <Stack.Screen name='Weight' component={Weight} />
 
         </Stack.Navigator>
       </UserProfileDataProvider>
