@@ -41,6 +41,7 @@ import Qualities from '../screens/profile/Qualities';
 import EyeColor from '../screens/profile/EyeColor';
 import Height from '../screens/profile/Height';
 import Weight from '../screens/profile/Weight';
+import Subscriptions from '../screens/setting/subscription';
 
 const StackNavigation = ({ token, intro }: any) => {
   const Stack = createNativeStackNavigator();
@@ -359,6 +360,8 @@ const StackNavigation = ({ token, intro }: any) => {
           <Stack.Screen name="PartnerQualities" component={Qualities} />
           <Stack.Screen name="EyeColor" component={EyeColor} />
           <Stack.Screen name="Height" component={Height} />
+          <Stack.Screen name='Subscriptions' component={Subscriptions} />
+
             <Stack.Screen name='Weight' component={Weight} />
 
         </Stack.Navigator>
