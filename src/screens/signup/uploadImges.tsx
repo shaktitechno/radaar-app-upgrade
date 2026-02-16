@@ -59,6 +59,7 @@ import {
   BottomSheetBackdrop,
 } from '@gorhom/bottom-sheet';
 import { openCamera, openPicker } from 'react-native-image-crop-picker';
+import { getFCMToken } from '../../services/pushNotification';
 
 
 const height = Dimensions.get('window').height;
@@ -162,7 +163,7 @@ const RecentPics: FC<UploadImages> = (props: any) => {
         if (res.data.status) {
           const token = await getToken();
           showSuccessMessage('Sign up successfully');
-        //   getFCMToken();
+          getFCMToken();
           AsyncStorage.setItem(
             'user_details',
             JSON.stringify(res.data.user_details),

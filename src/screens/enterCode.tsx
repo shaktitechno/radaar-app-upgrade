@@ -44,6 +44,7 @@ import { UserProfileData } from '../contexts/userDetailscontexts';
 import { SignupDataContext } from '../contexts/signUpcontexts';
 import { useAuthToken } from '../recoil/atoms/authToken';
 import { useChatState } from '../recoil/atoms/chatData';
+import { getFCMToken } from '../services/pushNotification';
 
 const otpValidationSchema = Yup.object().shape({
   otp: Yup.string().min(3, 'Please enter full otp'),
@@ -176,7 +177,7 @@ const EnterCode = (props: navigateRoutes) => {
           if (res?.data?.IsprofileComplete) {
             setLoading(false);
             initializeSocket(res?.data?.token);
-            // getFCMToken();
+            getFCMToken();
             if (socket) {
               socket.on('connected', (response: any) => {});
             }

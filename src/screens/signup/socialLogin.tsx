@@ -36,6 +36,9 @@ import { getMyProfile, googleSocialLogin } from '../../services/api';
 import { showSuccessMessage } from '../../services/alerts';
 import Fonts from '../../constant/fonts';
 import { useAuthToken } from '../../recoil/atoms/authToken';
+import { getFCMToken } from '../../services/pushNotification';
+
+
 
 const SocialLogin = (props: {
   route: RouteProp<ParamListBase, string>;
@@ -87,7 +90,7 @@ const SocialLogin = (props: {
         setGoogleLoading(false);
         if (res?.data?.IsprofileComplete) {
           initializeSocket(res?.data?.token);
-          // getFCMToken()
+          getFCMToken()
 
           if (socket) {
             socket.on('connected', (response: any) => {

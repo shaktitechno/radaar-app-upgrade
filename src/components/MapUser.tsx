@@ -72,7 +72,7 @@ const MapUser = (props: any) => {
   // console.log('storiesds..............',user.first_name,user.last_name,user.stories)
   
 
-  console.log("Props:", props)
+  
   return (
     <TouchableOpacity
       activeOpacity={0.7}
