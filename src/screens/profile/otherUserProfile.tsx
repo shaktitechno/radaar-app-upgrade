@@ -50,10 +50,12 @@ import PopupModal from '../../components/noPlane';
 import { UserProfileData } from '../../contexts/userDetailscontexts';
 import { socket } from '../../services/apiConfig';
 import { fonts } from '@rneui/base';
+// import { useChatState } from '../../recoil/atoms/chatData';
+import { getFCMToken } from '../../services/pushNotification';
 import { useChatState } from '../../recoil/atoms/chatData';
 
 const height = Dimensions.get('window').height;
-const ProfilePage = (props: any) => {
+const OtherUserProfile = (props: any) => {
   const [userDetails, setUserDetails] = useState<any>();
   const reportPopup = useRef<any>();
   const [reportType, setreportType] = useState(null);
@@ -69,6 +71,17 @@ const ProfilePage = (props: any) => {
     getMessages,
   } = useContext(UserProfileData);
   const messages = useChatState(state => state.chatState);
+  console.log("message::", messages.data)
+
+  console.log("props:", props)
+//   useEffect(() => {
+//   console.log("FULL ZUSTAND STATE:", useChatState.getState());
+// }, []);
+
+
+//   useEffect(() => {
+//   console.log("Zustand Updated:", messages.data);
+// }, [messages.data]);
 
   useEffect(() => {
     if (props?.route?.params?.user) {
@@ -173,11 +186,12 @@ const ProfilePage = (props: any) => {
   );
   const handelNavigate = () => {
     // console.log('messages.data',messages.data)
-    const index = messages.data.findIndex(
+    const index = messages?.data?.findIndex(
       (elm: any) => elm?.user?._id == userDetails?._id,
     );
-    // console.error(index)
+    console.log("index:",index)
     if (index == -1) {
+      console.log("in the if block::")
       props?.navigation.navigate('SingleChat', {
         firstName: userDetails?.first_name,
         lastName: userDetails?.last_name,
@@ -190,7 +204,9 @@ const ProfilePage = (props: any) => {
       if (!subscription?.chat) {
         return setVisible(true);
       }
+      console.log("in the else block:")
       const data: any = messages?.data?.[index];
+      console.log("data:", data)
       props.navigation.navigate('SingleChat', {
         firstName: data?.user?.first_name,
         lastName: data?.user?.last_name,
@@ -210,6 +226,8 @@ const ProfilePage = (props: any) => {
 
   const heightStyle =
     userDetails?.media?.length > 1 ? styles.height500 : styles.height410;
+
+
 
   return (
     <SafeAreaView
@@ -1550,7 +1568,7 @@ const ProfilePage = (props: any) => {
                 <View style={styles.containerDropdown}>
                   <TouchableOpacity
                     onPress={handlePress}
-                    style={commonStyle.shadowButton}
+                    style={[commonStyle.shadowButton,{right:25}]}
                     className="w-[50] h-[50] rounded-full bg-grey items-center justify-center"
                   >
                     <ImageBackground
@@ -1779,4 +1797,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfilePage;
+export default OtherUserProfile;

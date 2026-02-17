@@ -27,7 +27,7 @@ import Settings from '../screens/setting/setting';
 import PreferenceSettings from '../screens/setting/setting.preference';
 import BlockedUserList from '../screens/setting/blockList';
 import EditProfile from '../screens/profile/editProfile';
-import OtherUserProfile from '../screens/profile/otherUserProfile';
+
 import Relegion from '../screens/profile/Relegion';
 import StarSign from '../screens/profile/StarSign';
 
@@ -42,12 +42,19 @@ import EyeColor from '../screens/profile/EyeColor';
 import Height from '../screens/profile/Height';
 import Weight from '../screens/profile/Weight';
 import Subscriptions from '../screens/setting/subscription';
+import OtherUserProfile from '../screens/profile/otherUserProfile';
+import SingleChat from '../screens/chat/singleChat';
+import CallingContaxtProvider from '../contexts/callingContaxt';
+import {
+  ZegoUIKitPrebuiltCallInCallScreen,
+  ZegoUIKitPrebuiltCallWaitingScreen,
+} from '@zegocloud/zego-uikit-prebuilt-call-rn';
 
 const StackNavigation = ({ token, intro }: any) => {
   const Stack = createNativeStackNavigator();
   const messages = useChatState(state => state.chatState);
-  const setMessages = (value: chatData) =>
-    useChatState.setState({ chatState: value });
+  const setMessages = useChatState(state => state.setChatState);
+
   const messagesRef = useRef(messages);
   const userIDRef = useRef(null);
   useEffect(() => {
@@ -56,6 +63,10 @@ const StackNavigation = ({ token, intro }: any) => {
     );
     setMessages((state: any) => ({ ...state, unreadMesage: value }));
   }, [messages.data]);
+
+  useEffect(() => {
+    messagesRef.current = messages;
+  }, [messages]);
 
   const defaultOptions = () => {
     return {
@@ -80,17 +91,10 @@ const StackNavigation = ({ token, intro }: any) => {
           elm?.user?._id == response?.sender ||
           elm?.user?._id == response?.receiver,
       );
-      // console.log('index',index,messagesRef?.current?.data?.[index])
       if (index != -1) {
         setMessages?.((oldState: chatData) => {
           let oldData;
-          // console.log('response.sender == userDetails._idresponse.sender == userDetails._id',userIDRef?.current?._id?.(),response.sender)
-          // if(response.sender == userIDRef?.current?._id?.()){
-          //     oldData = {...oldState?.data?.[index] }
-          // }
-          // else if(response.message_state == 'delivered'){
-          //     oldData = {...oldState?.data?.[index],deliveredMessagesCount:(oldState?.data?.[index]?.deliveredMessagesCount  + 1) }
-          // }
+
           if (
             response?.receiver == userIDRef?.current?._id?.() &&
             response.message_state == 'delivered'
@@ -103,16 +107,15 @@ const StackNavigation = ({ token, intro }: any) => {
           } else {
             oldData = { ...oldState?.data?.[index] };
           }
-          // console.log('atdh dcisd ciaeuieihwdcow',oldState?.data?.[index].deliveredMessagesCount)
           oldData.messages = [message, ...oldData.messages];
 
           let newData = [...oldState?.data];
           newData.splice(index, 1);
           const updatedNewData = [...newData, { ...oldData }];
-          messagesRef.current = { loading: false, data: updatedNewData };
+          // messagesRef.current = { loading: false, data: updatedNewData };
           return {
-            loading: false,
             data: updatedNewData,
+            loading: false,
           };
         });
       } else {
@@ -137,7 +140,6 @@ const StackNavigation = ({ token, intro }: any) => {
             let oldData = { ...state?.data?.[index] };
             const newMessagesObj: Message[] = oldData?.messages?.map(
               (message: Message) => {
-                // console.log('firstatestatestatestatest', message?.sender == response?.other_user_id && {...message,message_state:'seen'} )
                 return message?.sender == response?.other_user_id
                   ? { ...message, message_state: 'seen' }
                   : { ...message };
@@ -146,9 +148,8 @@ const StackNavigation = ({ token, intro }: any) => {
 
             oldData.messages = newMessagesObj;
             newData[index] = oldData;
-            // console.log('firstatestatestatestatest',newData,oldData)
           }
-          messagesRef.current = { loading: false, data: newData };
+          // messagesRef.current = { loading: false, data: newData };
           return {
             loading: false,
             data: newData,
@@ -166,7 +167,6 @@ const StackNavigation = ({ token, intro }: any) => {
             let oldData = { ...state?.data?.[index] };
             const newMessagesObj: Message[] = oldData?.messages?.map(
               (message: Message) => {
-                // console.log('firstatestatestatestatest', message?.sender == response?.other_user_id && {...message,message_state:'seen'} )
                 return message?.sender == response?.other_user_id &&
                   message?.message_state == 'sent'
                   ? { ...message, message_state: 'delivered' }
@@ -176,9 +176,8 @@ const StackNavigation = ({ token, intro }: any) => {
 
             oldData.messages = newMessagesObj;
             newData[index] = oldData;
-            // console.log('firstatestatestatestatest',newData,oldData)
           }
-          messagesRef.current = { loading: false, data: newData };
+          // messagesRef.current = { loading: false, data: newData };
           return {
             loading: false,
             data: newData,
@@ -198,7 +197,7 @@ const StackNavigation = ({ token, intro }: any) => {
                 ? { ...elm, requestStatus: 'accepted' }
                 : elm,
           );
-          messagesRef.current = { loading: false, data: updatedState };
+          // messagesRef.current = { loading: false, data: updatedState };
           return {
             data: updatedState,
             loading: false,
@@ -214,7 +213,7 @@ const StackNavigation = ({ token, intro }: any) => {
                 ? { ...elm, requestStatus: 'rejected' }
                 : elm,
           );
-          messagesRef.current = { loading: false, data: updatedState };
+          // messagesRef.current = { loading: false, data: updatedState };
           return {
             data: updatedState,
             loading: false,
@@ -229,7 +228,7 @@ const StackNavigation = ({ token, intro }: any) => {
               ? { ...elm, user: { ...elm.user, isOnline: false } }
               : elm,
           );
-          messagesRef.current = { loading: false, data: newarrv };
+          // messagesRef.current = { loading: false, data: newarrv };
           return { data: newarrv, loading: false };
         });
       });
@@ -241,13 +240,11 @@ const StackNavigation = ({ token, intro }: any) => {
               ? { ...elm, user: { ...elm.user, isOnline: true } }
               : elm,
           );
-          messagesRef.current = { loading: false, data: newarrv };
+          // messagesRef.current = { loading: false, data: newarrv };
           return { data: newarrv, loading: false };
         });
       });
       socket.on('sendReactOnPrivateMessage', (response: any) => {
-        // console.log('sendReactOnPrivateMessage>> ', response); // ok
-        // console.log(messagesRef)
         const index = messagesRef?.current?.data?.findIndex(
           (elm: any) => elm?._id == response.conversationId,
         );
@@ -271,11 +268,11 @@ const StackNavigation = ({ token, intro }: any) => {
             let newData = [...oldState.data];
             newData.splice(index, 1);
             const updatedNewData = [...newData, { ...oldData }];
-            messagesRef.current = { loading: false, data: updatedNewData };
-            messagesRef.current = { loading: false, data: updatedNewData };
+            // messagesRef.current = { loading: false, data: updatedNewData };
+            // messagesRef.current = { loading: false, data: updatedNewData };
             return {
-              loading: false,
               data: updatedNewData,
+              loading: false,
             };
           });
         }
@@ -291,15 +288,10 @@ const StackNavigation = ({ token, intro }: any) => {
   const getMessages = () => {
     // setLoading(true)
     getALLChatUsers().then(res => {
-      console.log('res::', res);
-      // console.log('chat data is heeer2',res)
-      // console.log('data==-=-=-=-chat',res.data?.chats)
-      // setTimeout(() => {
-      // setLoading(false)
-      messagesRef.current = { loading: false, data: res?.data?.chats };
+      console.log('res of stack naviagtion::', res);
+
+      // messagesRef.current = { loading: false, data: res?.data?.chats };
       setMessages({ loading: false, data: res?.data?.chats });
-      // }, 1000)
-      // setUsers(res?.data?.chats)
     });
   };
   useEffect(() => {
@@ -307,64 +299,85 @@ const StackNavigation = ({ token, intro }: any) => {
       getMessages();
     }
   }, [token]);
-  console.log('token::', token);
   const screen = intro ? 'SocialLogin' : 'Screen1';
+
+  // console.log("messgae in stack:",messages)
   return (
     <SigninUpDataProvider token={token}>
       <UserProfileDataProvider ref={userIDRef} {...{ token, getMessages }}>
-        <Stack.Navigator
-          screenOptions={defaultOptions()}
-          initialRouteName={token ? 'MyTabs' : screen}
-        >
-          <Stack.Screen name="Screen1" component={Screen1} />
-          <Stack.Screen name="Screen2" component={Screen2} />
-          <Stack.Screen name="Screen3" component={Screen3} />
-          <Stack.Screen name="SocialLogin" component={SocialLogin} />
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="EnterCode" component={EnterCode} />
-          <Stack.Screen name="MyTabs" component={TabNavigation} />
-          <Stack.Screen name="FirstName" component={FirstNameDob} />
-          <Stack.Screen name="Gender" component={Gender} />
-          <Stack.Screen
-            name="GenderInterest"
-            component={GenderInterestedAgeGroup}
-          />
-          <Stack.Screen
-            name="OccupHobbiesDescri"
-            component={OccupHobbiesDescri}
-          />
-          <Stack.Screen name="Sports" component={Sports} />
-          <Stack.Screen name="Work" component={Work} />
-          <Stack.Screen name="UploadImages" component={RecentPics} />
-          <Stack.Screen name="CameraComponent" component={CameraComponent} />
-          <Stack.Screen name="CallHistory" component={CallHistory} />
-          <Stack.Screen name="Settings" component={Settings} />
-          <Stack.Screen
-            name="PreferenceSettings"
-            component={PreferenceSettings}
-          />
-          <Stack.Screen name="BlockedUserList" component={BlockedUserList} />
-          <Stack.Screen name="EditProfile" component={EditProfile} />
-          <Stack.Screen name="OtherUserProfile" component={OtherUserProfile} />
-          <Stack.Screen name="CompleteProfile" component={Relegion} />
-          <Stack.Screen name="StarSign" component={StarSign} />
-          <Stack.Screen name="DrinkOrSmoke" component={DrinkOrSmoke} />
-          <Stack.Screen name="Drink" component={Drink} />
-          <Stack.Screen name="PreferredPet" component={PreferredPet} />
-          <Stack.Screen name="RelationshipType" component={RelationshipType} />
-          <Stack.Screen name="TraitsAttractedTo" component={Traits} />
-          <Stack.Screen
-            name="EnjoyableActivity"
-            component={EnjoyableActivity}
-          />
-          <Stack.Screen name="PartnerQualities" component={Qualities} />
-          <Stack.Screen name="EyeColor" component={EyeColor} />
-          <Stack.Screen name="Height" component={Height} />
-          <Stack.Screen name='Subscriptions' component={Subscriptions} />
+        <CallingContaxtProvider token={token}>
+          <Stack.Navigator
+            screenOptions={defaultOptions()}
+            initialRouteName={token ? 'MyTabs' : screen}
+          >
+            <Stack.Screen
+              options={{ headerShown: false }}
+              // DO NOT change the name
+              name="ZegoUIKitPrebuiltCallWaitingScreen"
+              component={ZegoUIKitPrebuiltCallWaitingScreen}
+            />
+            <Stack.Screen
+              options={{ headerShown: false }}
+              // DO NOT change the name
+              name="ZegoUIKitPrebuiltCallInCallScreen"
+              component={ZegoUIKitPrebuiltCallInCallScreen}
+            />
+            <Stack.Screen name="Screen1" component={Screen1} />
+            <Stack.Screen name="Screen2" component={Screen2} />
+            <Stack.Screen name="Screen3" component={Screen3} />
+            <Stack.Screen name="SocialLogin" component={SocialLogin} />
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="EnterCode" component={EnterCode} />
+            <Stack.Screen name="MyTabs" component={TabNavigation} />
+            <Stack.Screen name="FirstName" component={FirstNameDob} />
+            <Stack.Screen name="Gender" component={Gender} />
+            <Stack.Screen
+              name="GenderInterest"
+              component={GenderInterestedAgeGroup}
+            />
+            <Stack.Screen
+              name="OccupHobbiesDescri"
+              component={OccupHobbiesDescri}
+            />
+            <Stack.Screen name="Sports" component={Sports} />
+            <Stack.Screen name="Work" component={Work} />
+            <Stack.Screen name="UploadImages" component={RecentPics} />
+            <Stack.Screen name="CameraComponent" component={CameraComponent} />
+            <Stack.Screen name="CallHistory" component={CallHistory} />
+            <Stack.Screen name="Settings" component={Settings} />
+            <Stack.Screen
+              name="PreferenceSettings"
+              component={PreferenceSettings}
+            />
+            <Stack.Screen name="BlockedUserList" component={BlockedUserList} />
+            <Stack.Screen name="EditProfile" component={EditProfile} />
+            <Stack.Screen
+              name="OtherUserProfile"
+              component={OtherUserProfile}
+            />
+            <Stack.Screen name="CompleteProfile" component={Relegion} />
+            <Stack.Screen name="StarSign" component={StarSign} />
+            <Stack.Screen name="DrinkOrSmoke" component={DrinkOrSmoke} />
+            <Stack.Screen name="Drink" component={Drink} />
+            <Stack.Screen name="PreferredPet" component={PreferredPet} />
+            <Stack.Screen
+              name="RelationshipType"
+              component={RelationshipType}
+            />
+            <Stack.Screen name="TraitsAttractedTo" component={Traits} />
+            <Stack.Screen
+              name="EnjoyableActivity"
+              component={EnjoyableActivity}
+            />
+            <Stack.Screen name="PartnerQualities" component={Qualities} />
+            <Stack.Screen name="EyeColor" component={EyeColor} />
+            <Stack.Screen name="Height" component={Height} />
+            <Stack.Screen name="Subscriptions" component={Subscriptions} />
 
-            <Stack.Screen name='Weight' component={Weight} />
-
-        </Stack.Navigator>
+            <Stack.Screen name="Weight" component={Weight} />
+            <Stack.Screen name="SingleChat" component={SingleChat} />
+          </Stack.Navigator>
+        </CallingContaxtProvider>
       </UserProfileDataProvider>
     </SigninUpDataProvider>
   );

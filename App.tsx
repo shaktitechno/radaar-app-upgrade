@@ -34,6 +34,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as RootNavigation from './src/services/navigationServices';
 import SplashScreen from 'react-native-splash-screen';
+import { ZegoCallInvitationDialog } from '@zegocloud/zego-uikit-prebuilt-call-rn';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -83,6 +84,7 @@ console.log("solved:", solved);
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Provider store={store}>
           <NavigationContainer  ref={RootNavigation.NavigationRef}>
+                <ZegoCallInvitationDialog  />
             <StatusBar
               translucent
               backgroundColor="#fff"
